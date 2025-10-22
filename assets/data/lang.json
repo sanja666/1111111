@@ -1,0 +1,248 @@
+{
+  "lv": {
+    "appTitle": "ePakalpojumi+ DEMO",
+    "footerNotice": "Šis ir demonstrācijas režīms. Visi maksājumi un juridiskie rezultāti ir simulācija, tie nerada reālas saistības un neaizstāj oficiālos valsts pakalpojumus.",
+    "nav": {
+      "services": "Pakalpojumi",
+      "payments": "Maksājumi",
+      "cases": "Lietas",
+      "casino": "Kazino",
+      "documents": "Dokumenti",
+      "profile": "Profils",
+      "admin": "Administrators"
+    },
+    "login": {
+      "title": "Droša pieslēgšana",
+      "demo": "Demo konts",
+      "smartId": "Smart-ID (sim)",
+      "eSign": "eParaksts (sim)",
+      "sms": "SMS-OTP (sim)",
+      "user": "Lietotājs",
+      "password": "Parole",
+      "confirm": "Apstiprināt",
+      "approve": "Parakstīt",
+      "sendCode": "Sūtīt kodu",
+      "logout": "Sesija beigusies. Lūdzu, pieslēdzieties vēlreiz.",
+      "smartPrompt": "Smart-ID pieprasījums #A1B2",
+      "enterCode": "Ievadiet kodu no ierīces",
+      "codeAccepted": "Smart-ID sesija apstiprināta",
+      "eSignClient": "eParaksts klients (demo)",
+      "smsInfo": "Ievadiet telefona numuru"
+    },
+    "profile": {
+      "title": "Profila dati",
+      "name": "Vārds",
+      "surname": "Uzvārds",
+      "pk": "Personas kods",
+      "address": "Deklarētā adrese",
+      "email": "E-pasts",
+      "phone": "Tālrunis",
+      "balance": "Bilance",
+      "topUp": "Papildināt",
+      "withdraw": "Izmaksāt",
+      "save": "Saglabāt izmaiņas",
+      "adminArrest": "Pagaidu ierobežojums līdz"
+    },
+    "payments": {
+      "title": "Maksājumi un parādi",
+      "history": "Maksājumu vēsture",
+      "open": "Atvērtie maksājumi",
+      "pay": "Apmaksāt",
+      "payLater": "Apmaksāt vēlāk",
+      "topUp": "Papildināt bilanci",
+      "withdraw": "Izmaksāt",
+      "status": {
+        "open": "Atvērts",
+        "paid": "Samaksāts",
+        "canceled": "Atcelts",
+        "processing": "Gaida apstrādi",
+        "rejected": "Atteikts"
+      },
+      "types": {
+        "fine": "Sods",
+        "service": "Pakalpojums",
+        "fee": "Komisija",
+        "refund": "Atmaksa",
+        "deposit": "Depozīts",
+        "withdraw": "Izmaksa",
+        "extra": "Papildparāds"
+      }
+    },
+    "services": {
+      "title": "Pieejamie pakalpojumi",
+      "order": "Pasūtīt",
+      "processing": "Apstrādes statuss",
+      "priority": "Elektroniskā rinda",
+      "deadline": "Termiņš",
+      "price": "Cena"
+    },
+    "cases": {
+      "title": "Lietas un sodāmības",
+      "noCases": "Pašlaik nav reģistrētu lietu",
+      "accelerate": "Paātrināt izskatīšanu",
+      "appeal": "Apelācija",
+      "appealPlaceholder": "Aprakstiet apelācijas pamatojumu",
+      "timeline": "Vēsture"
+    },
+    "casino": {
+      "title": "Kazino pēctecības",
+      "roulette": "Rulete",
+      "lottery": "Loterija",
+      "double": "Double",
+      "spin": "Griezt",
+      "play": "Spēlēt",
+      "bet": "Likme",
+      "history": "Kazino vēsture"
+    },
+    "documents": {
+      "title": "Dokumenti",
+      "receipts": "Kvitances",
+      "notices": "Paziņojumi",
+      "download": "Lejupielādēt"
+    },
+    "admin": {
+      "title": "Administrators",
+      "probabilities": "Varbūtību iestatījumi",
+      "triggers": "Ātrās darbības",
+      "generateFine": "Sagatavot sodu",
+      "createCase": "Izveidot lietu",
+      "forceHearing": "Uzturēt sēdi tagad",
+      "liftArrest": "Noņemt UI arestu",
+      "reset": "Notīrīt datus",
+      "serviceEditor": "Pakalpojumu redaktors",
+      "logs": "Žurnāls"
+    },
+    "notifications": {
+      "profileSaved": "Profils saglabāts.",
+      "fineRegistered": "Reģistrēts administratīvais maksājums par datu apstrādi.",
+      "paymentRecorded": "Jūsu maksājums reģistrēts. Tiek gaidīta apstrāde.",
+      "caseSent": "Lieta nosūtīta tiesai. Sēde ieplānota pēc 30 dienām.",
+      "uiArrest": "Administratīvais arests (UI) līdz",
+      "sessionEnded": "Sesija beigusies",
+      "randomWarning": "Administratīvais brīdinājums"
+    }
+  },
+  "ru": {
+    "appTitle": "ePakalpojumi+ ДЕМО",
+    "footerNotice": "Это демонстрационный режим. Все платежи и юридические результаты — симуляция, не создают реальных обязательств и не заменяют официальные государственные услуги.",
+    "nav": {
+      "services": "Услуги",
+      "payments": "Платежи",
+      "cases": "Дела",
+      "casino": "Казино",
+      "documents": "Документы",
+      "profile": "Профиль",
+      "admin": "Администратор"
+    },
+    "login": {
+      "title": "Безопасное подключение",
+      "demo": "Демо аккаунт",
+      "smartId": "Smart-ID (сим)",
+      "eSign": "eParaksts (сим)",
+      "sms": "SMS-OTP (сим)",
+      "user": "Пользователь",
+      "password": "Пароль",
+      "confirm": "Подтвердить",
+      "approve": "Подписать",
+      "sendCode": "Отправить код",
+      "logout": "Сессия завершена. Пожалуйста, войдите снова.",
+      "smartPrompt": "Smart-ID запрос #A1B2",
+      "enterCode": "Введите код с устройства",
+      "codeAccepted": "Сессия Smart-ID подтверждена",
+      "eSignClient": "Клиент eParaksts (демо)",
+      "smsInfo": "Введите номер телефона"
+    },
+    "profile": {
+      "title": "Данные профиля",
+      "name": "Имя",
+      "surname": "Фамилия",
+      "pk": "Персональный код",
+      "address": "Заявленный адрес",
+      "email": "E-mail",
+      "phone": "Телефон",
+      "balance": "Баланс",
+      "topUp": "Пополнить",
+      "withdraw": "Вывести",
+      "save": "Сохранить изменения",
+      "adminArrest": "Временное ограничение до"
+    },
+    "payments": {
+      "title": "Платежи и долги",
+      "history": "История платежей",
+      "open": "Открытые счета",
+      "pay": "Оплатить",
+      "payLater": "Оплатить позже",
+      "topUp": "Пополнить баланс",
+      "withdraw": "Вывести",
+      "status": {
+        "open": "Открыт",
+        "paid": "Оплачен",
+        "canceled": "Отменен",
+        "processing": "Ожидает обработку",
+        "rejected": "Отклонен"
+      },
+      "types": {
+        "fine": "Штраф",
+        "service": "Услуга",
+        "fee": "Комиссия",
+        "refund": "Возврат",
+        "deposit": "Депозит",
+        "withdraw": "Вывод",
+        "extra": "Доп. долг"
+      }
+    },
+    "services": {
+      "title": "Доступные услуги",
+      "order": "Заказать",
+      "processing": "Статус обработки",
+      "priority": "Электронная очередь",
+      "deadline": "Срок",
+      "price": "Цена"
+    },
+    "cases": {
+      "title": "Дела и судимости",
+      "noCases": "Сейчас нет зарегистрированных дел",
+      "accelerate": "Ускорить рассмотрение",
+      "appeal": "Апелляция",
+      "appealPlaceholder": "Опишите основания апелляции",
+      "timeline": "История"
+    },
+    "casino": {
+      "title": "Казино последствий",
+      "roulette": "Рулетка",
+      "lottery": "Лотерея",
+      "double": "Дабл",
+      "spin": "Крутить",
+      "play": "Играть",
+      "bet": "Ставка",
+      "history": "История казино"
+    },
+    "documents": {
+      "title": "Документы",
+      "receipts": "Квитанции",
+      "notices": "Уведомления",
+      "download": "Скачать"
+    },
+    "admin": {
+      "title": "Администратор",
+      "probabilities": "Настройки вероятностей",
+      "triggers": "Быстрые действия",
+      "generateFine": "Сгенерировать штраф",
+      "createCase": "Создать дело",
+      "forceHearing": "Провести заседание сейчас",
+      "liftArrest": "Снять UI арест",
+      "reset": "Сбросить данные",
+      "serviceEditor": "Редактор услуг",
+      "logs": "Журнал"
+    },
+    "notifications": {
+      "profileSaved": "Профиль сохранён.",
+      "fineRegistered": "Зарегистрирован административный платёж за обработку данных.",
+      "paymentRecorded": "Ваш платёж зарегистрирован. Ожидается обработка.",
+      "caseSent": "Дело направлено в суд. Заседание назначено через 30 дней.",
+      "uiArrest": "Административная блокировка (UI) до",
+      "sessionEnded": "Сессия завершена",
+      "randomWarning": "Административное предупреждение"
+    }
+  }
+}

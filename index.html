@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ePakalpojumi+ DEMO</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="crest" aria-hidden="true">LV</div>
+      <div>
+        <div class="app-title">ePakalpojumi+ DEMO</div>
+        <small id="session-info" class="session-info"></small>
+      </div>
+    </div>
+    <nav id="main-nav" aria-label="Galvenā navigācija"></nav>
+    <div class="language-switch" role="group" aria-label="Valodas izvēle">
+      <button data-lang="lv" class="lang-btn" aria-pressed="true">LV</button>
+      <button data-lang="ru" class="lang-btn" aria-pressed="false">RU</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="system-banner" class="banner" role="status" aria-live="polite"></div>
+
+    <section id="login" class="card active" aria-labelledby="login-title">
+      <h1 id="login-title"></h1>
+      <div class="login-grid">
+        <div class="login-card" id="login-demo">
+          <h2></h2>
+          <form id="demo-form">
+            <label for="demo-user"></label>
+            <input id="demo-user" name="username" autocomplete="username" required />
+            <label for="demo-pass"></label>
+            <input id="demo-pass" name="password" type="password" autocomplete="current-password" required />
+            <button type="submit" class="primary"></button>
+          </form>
+          <p class="muted">user / admin &middot; 1234</p>
+        </div>
+        <div class="login-card" id="login-smart">
+          <h2></h2>
+          <form id="smart-form">
+            <label for="smart-pk">Personas kods</label>
+            <input id="smart-pk" required placeholder="010199-12345" />
+            <label for="smart-name">Vārds, Uzvārds</label>
+            <input id="smart-name" required placeholder="Jānis Bērziņš" />
+            <button type="submit" class="primary"></button>
+          </form>
+        </div>
+        <div class="login-card" id="login-esign">
+          <h2></h2>
+          <form id="esign-form">
+            <label for="esign-id">eParaksts ID</label>
+            <input id="esign-id" required placeholder="EP-LV-DEMO-0001" />
+            <button type="submit" class="primary"></button>
+          </form>
+        </div>
+        <div class="login-card" id="login-sms">
+          <h2></h2>
+          <form id="sms-form">
+            <label for="sms-phone">Telefons</label>
+            <input id="sms-phone" required placeholder="20001234" />
+            <button type="submit" class="primary"></button>
+            <div class="otp hidden">
+              <label for="sms-otp">OTP</label>
+              <input id="sms-otp" placeholder="0000" />
+              <button type="button" id="sms-verify" class="primary">OK</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" aria-labelledby="services-title">
+      <div class="card">
+        <h2 id="services-title"></h2>
+        <div id="services-list" class="service-list"></div>
+      </div>
+      <div class="card">
+        <h3 id="services-processing"></h3>
+        <div id="service-orders"></div>
+      </div>
+    </section>
+
+    <section id="payments" aria-labelledby="payments-title">
+      <div class="card">
+        <h2 id="payments-title"></h2>
+        <div class="actions">
+          <button id="btn-topup" class="primary"></button>
+          <button id="btn-withdraw" class="outline"></button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 id="payments-open"></h3>
+        <table class="table" id="open-payments-table"></table>
+      </div>
+      <div class="card">
+        <h3 id="payments-history"></h3>
+        <table class="table" id="payments-history-table"></table>
+      </div>
+    </section>
+
+    <section id="cases" aria-labelledby="cases-title">
+      <div class="card">
+        <h2 id="cases-title"></h2>
+        <div id="cases-container"></div>
+      </div>
+    </section>
+
+    <section id="casino" aria-labelledby="casino-title">
+      <div class="card">
+        <h2 id="casino-title"></h2>
+        <div class="tabs" role="tablist">
+          <button role="tab" data-tab="roulette" class="active" id="tab-roulette"></button>
+          <button role="tab" data-tab="lottery" id="tab-lottery"></button>
+          <button role="tab" data-tab="double" id="tab-double"></button>
+        </div>
+        <div id="casino-content"></div>
+      </div>
+      <div class="card">
+        <h3 id="casino-history"></h3>
+        <div id="casino-history-list"></div>
+      </div>
+    </section>
+
+    <section id="documents" aria-labelledby="documents-title">
+      <div class="card">
+        <h2 id="documents-title"></h2>
+        <div class="form-grid">
+          <div>
+            <h3 id="documents-receipts"></h3>
+            <div id="receipt-list"></div>
+          </div>
+          <div>
+            <h3 id="documents-notices"></h3>
+            <div id="notice-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile" aria-labelledby="profile-title">
+      <div class="card">
+        <h2 id="profile-title"></h2>
+        <div id="ui-arrest" class="badge danger hidden" role="status"></div>
+        <form id="profile-form">
+          <div class="form-grid">
+            <div>
+              <label for="profile-name"></label>
+              <input id="profile-name" required />
+            </div>
+            <div>
+              <label for="profile-surname"></label>
+              <input id="profile-surname" required />
+            </div>
+            <div>
+              <label for="profile-pk"></label>
+              <input id="profile-pk" required />
+            </div>
+            <div>
+              <label for="profile-address"></label>
+              <input id="profile-address" />
+            </div>
+            <div>
+              <label for="profile-email"></label>
+              <input id="profile-email" type="email" />
+            </div>
+            <div>
+              <label for="profile-phone"></label>
+              <input id="profile-phone" />
+            </div>
+          </div>
+          <div class="card" style="margin-top:1.5rem;">
+            <h3 id="profile-balance-label"></h3>
+            <div id="profile-balance" class="balance-display">€0.00</div>
+            <div class="actions">
+              <button id="profile-topup" type="button" class="primary"></button>
+              <button id="profile-withdraw" type="button" class="outline"></button>
+            </div>
+          </div>
+          <button type="submit" class="primary" id="profile-save"></button>
+        </form>
+      </div>
+    </section>
+
+    <section id="admin" aria-labelledby="admin-title">
+      <div class="card">
+        <h2 id="admin-title"></h2>
+        <div class="form-grid">
+          <div>
+            <h3 id="admin-prob"></h3>
+            <div id="probability-controls"></div>
+          </div>
+          <div>
+            <h3 id="admin-triggers"></h3>
+            <div class="actions">
+              <button id="admin-generate-fine" class="primary"></button>
+              <button id="admin-create-case" class="outline"></button>
+              <button id="admin-force-hearing" class="outline"></button>
+              <button id="admin-lift-arrest" class="outline"></button>
+              <button id="admin-reset" class="outline"></button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 id="admin-service-editor"></h3>
+          <div id="service-editor"></div>
+        </div>
+        <div class="card">
+          <h3 id="admin-logs"></h3>
+          <div id="admin-logs-list" class="timeline"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small id="footer-notice"></small>
+  </footer>
+
+  <div id="modal-root" class="modal-backdrop" role="dialog" aria-modal="true"></div>
+  <div class="toast-container" id="toast-container" aria-live="assertive"></div>
+
+  <script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
