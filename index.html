@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daugavpils Satiksme? (parodija)</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-sA+e2t3mTjJ5JxusEuybBY7lqj1p2WYnJ0v+1Z8gCQA=" crossorigin="">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-block">
+      <div class="logo-icon">🚌</div>
+      <div>
+        <h1>SIA "DAUGAVPILS SATIKSME?"</h1>
+        <p class="subtitle">ne īsti, tikai parodija</p>
+      </div>
+    </div>
+    <div class="header-status">
+      <div class="alert-level-pill" id="header-alert-pill">SECURITY: ???</div>
+      <div class="wallet">
+        <span>Mana e-karte:</span>
+        <strong id="wallet-balance">0.00 €</strong>
+        <button class="btn neon" id="add-balance-header">+Pievienot €</button>
+      </div>
+      <div class="shadow-status" id="shadow-status" hidden>ĒNAS STATUSS: AKTĪVS 🕶</div>
+    </div>
+  </header>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-target="tab-home">SĀKUMS</button>
+    <button class="tab-btn" data-target="tab-map">KARTE / MARŠRUTI</button>
+    <button class="tab-btn" data-target="tab-pass">MĒNEŠBIĻETE / ABONEMENTI</button>
+    <button class="tab-btn" data-target="tab-wheel">ATLAIŽU RATS</button>
+    <button class="tab-btn" data-target="tab-support">DISPEČERS / INCIDENTI</button>
+  </nav>
+
+  <main>
+    <section class="tab-page visible" id="tab-home">
+      <div class="grid home-grid">
+        <div class="card news">
+          <h2>Jaunumi / Paziņojumi</h2>
+          <ul id="news-list">
+            <li>No 01.11.2025 kontrolieri iegūst tiesības pajautāt “kur tu ej vispār?” arī ārpus transporta.</li>
+            <li>Nakts maršruts N7 kursē tikai ja šoferim nav slinkums (beta).</li>
+            <li>VIP lietotāji tagad var pasūtīt autobusu uz durvīm (“gang pickup mode”).</li>
+            <li>Ja stāvi pieturā vairāk par 12 minūtēm, sistēma automātiski ieskaita tevi kā vietējo skulptūru.</li>
+            <li>Kontrolieru mašīna tagad ar tumšo stiklojumu. Gribēji redzēt – nopērc abonementu.</li>
+          </ul>
+        </div>
+        <div class="card warning">
+          <h2>Brīdinājums</h2>
+          <p>Šis portāls ir <strong>PARODIJA</strong>, mācību darbs. Nekāda oficiāla informācija. Ja ticat katram vārdam, kontrolieris atnāks sapnī un pateiks “relax”.</p>
+        </div>
+        <div class="card quick-actions">
+          <h2>Ātrās darbības</h2>
+          <div class="actions-grid">
+            <button class="btn action" data-target="tab-map">Kur ir mans autobuss?</button>
+            <button class="btn action" data-target="tab-pass">Nopirkt mēnešbiļeti</button>
+            <button class="btn action" data-target="tab-map" data-subtarget="radar">Kontrolieru radars</button>
+            <button class="btn action" data-target="tab-support">Ziņot problēmu dispečerim</button>
+          </div>
+        </div>
+        <div class="card stats">
+          <h2>Pilsētas statuss</h2>
+          <div class="stats-grid">
+            <div>
+              <span>Aktīvie maršruti</span>
+              <strong>42</strong>
+            </div>
+            <div>
+              <span>Vidējais kavējums</span>
+              <strong>8 min (uz papīra 0)</strong>
+            </div>
+            <div>
+              <span>Kontrolieru aktivitāte</span>
+              <strong id="controller-activity">vidēja</strong>
+            </div>
+            <div>
+              <span>Konfiscēto bezbiļetnieku skaits šodien</span>
+              <strong id="confiscated-count">17</strong>
+            </div>
+            <div>
+              <span>Nauda iztērēta pelmeņiem (iekšējais budžets)</span>
+              <strong>€ 1 204.66</strong>
+            </div>
+            <div>
+              <span>Nelegālo smaidu skaits autobusā</span>
+              <strong>9</strong>
+            </div>
+          </div>
+        </div>
+        <div class="card alert-widget">
+          <h2>Brīdinājuma līmenis pilsētā</h2>
+          <div id="alert-level-display" class="alert-display">---</div>
+          <button class="btn neon" id="increase-alert">Paaugstināt līmeni</button>
+        </div>
+        <div class="card black-status" id="black-trial-banner" hidden>
+          <h2>🕶 Pagaidu Ēnas līmenis AKTĪVS</h2>
+          <p>Uzvedies cienīgi: kontrolieri sveicina tevi pirmie, bet neaizmirsti, ka tas ir tikai pagaidu privilēģiju miglājs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-page" id="tab-map">
+      <div class="grid map-grid">
+        <div class="card map-card">
+          <h2>Interaktīvā karte</h2>
+          <div id="map"></div>
+          <div class="map-controls">
+            <button class="btn neon" id="report-controller-map">Pievienot kontrolieri kartē</button>
+          </div>
+        </div>
+        <div class="card route-card">
+          <h2>Maršruta izvēle / GPS simulācija</h2>
+          <div class="route-controls">
+            <label for="route-select">Izvēlies maršrutu</label>
+            <select id="route-select"></select>
+            <button class="btn neon" id="start-route">Rādīt kustību</button>
+            <button class="btn ghost" id="stop-route">Stopēt simulāciju</button>
+          </div>
+          <div class="route-info" id="route-info">
+            <h3>Aptuvenā pozīcija</h3>
+            <p id="route-position">-</p>
+            <h3>Apraksts / noskaņa</h3>
+            <p id="route-description">Izvēlies maršrutu, lai saprastu savu dzīves izvēli.</p>
+            <h3>Vidējais kavējums</h3>
+            <p id="route-delay">—</p>
+            <h3>Pieturu saraksts</h3>
+            <ul id="route-stops"></ul>
+            <h3>Riska zona</h3>
+            <p id="route-risk">—</p>
+          </div>
+        </div>
+        <div class="card radar-card" id="radar-card">
+          <h2>Kontrolieru radars</h2>
+          <ul id="controller-report-list" class="report-list"></ul>
+          <button class="btn neon" id="report-controller">Es redzu kontrolieri!</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-page" id="tab-pass">
+      <div class="grid pass-grid">
+        <div class="card wallet-card">
+          <h2>Mans e-kartes balanss</h2>
+          <p class="balance-display" id="wallet-balance-main">0.00 €</p>
+          <button class="btn neon" id="add-balance-main">Pievienot €</button>
+        </div>
+        <div class="card plans-card">
+          <h2>Tarifu plāni</h2>
+          <div class="plans-grid" id="plans-grid"></div>
+        </div>
+        <div class="card active-pass-card">
+          <h2>Mana aktīvā biļete</h2>
+          <div id="active-pass-info">
+            <p>Nav aktīvas biļetes. Pievienojies ēnu kustībai!</p>
+          </div>
+        </div>
+        <div class="card discount-card">
+          <h2>Aktīvie kuponi / privilēģijas</h2>
+          <ul id="discount-list" class="report-list"></ul>
+          <p class="discount-note">Ja kuponu nav, mēģini sarunāt ar kontrolieri vai griez Gods Wheel vēlreiz.</p>
+        </div>
+        <div class="card history-card">
+          <h2>Čeki / vēsture</h2>
+          <ul id="purchase-history" class="report-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-page" id="tab-wheel">
+      <div class="grid wheel-grid">
+        <div class="card wheel-card">
+          <h2>Gods Wheel — atlaižu rats</h2>
+          <div class="wheel-wrapper">
+            <div class="wheel-pointer">▲</div>
+            <div id="wheel" class="wheel"></div>
+          </div>
+          <button class="btn neon" id="spin-wheel">GRIEZT!</button>
+          <p class="last-prize">Mans pēdējais laimests: <span id="last-prize">nav vēl griezts</span></p>
+        </div>
+        <div class="card rules-card">
+          <h2>Noteikumi (humors, bet tomēr)</h2>
+          <ul>
+            <li>VIP drīkst griezt bez limita, jo VIP ir likums.</li>
+            <li>Ja laimē “Bezmaksas mēnesis?” jautājuma zīme paliek.</li>
+            <li>Ja kļūsti par šoferi, tev jāsaka “nē sīknaudu nav” visiem pasažieriem.</li>
+            <li>BLACK TIER trial aktivizē ēnu skatienu uz 24h. Izmanto to atbildīgi.</li>
+            <li>Mēs nelietojam RNG, mēs jautājam kontrolierim. Viņš mūs ignorē, tāpēc RNG.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-page" id="tab-support">
+      <div class="grid support-grid">
+        <div class="card form-card">
+          <h2>Sūdzību / incidentu forma</h2>
+          <form id="ticket-form">
+            <label> Tavs vārds
+              <input type="text" name="name" required placeholder="Piemēram: Viktor mafijas biedrs">
+            </label>
+            <label> Kas notika?
+              <textarea name="message" required placeholder="Apraksti drāmu, kontrolieris gaida." rows="3"></textarea>
+            </label>
+            <label> Kur tas bija? (pietura / maršruts / laiks)
+              <input type="text" name="where" required placeholder="CENTRS / Autobuss 7A / 21:45">
+            </label>
+            <button class="btn neon" type="submit">Nosūtīt ziņojumu</button>
+          </form>
+          <p class="ticket-hint">Saglabā ID, citādi mēs tevi nezinām. Ar cieņu, pseido-dispečers.</p>
+        </div>
+        <div class="card tickets-card">
+          <h2>Mani ziņojumi dispečerim</h2>
+          <ul id="ticket-history" class="report-list"></ul>
+        </div>
+        <div class="card threat-card">
+          <h2>Draudības līmenis / pilsētas statuss</h2>
+          <ul id="threat-insights">
+            <li>Maršruti ar visvairāk sūdzībām: <span id="top-complaint-routes">—</span></li>
+            <li>Visbīstamākā pietura: <span id="danger-stop">—</span></li>
+            <li>Populārākais iemesls sūdzībai: <span id="top-complaint-reason">—</span></li>
+          </ul>
+        </div>
+        <div class="card contact-card">
+          <h2>Tiešais kontakts (it kā)</h2>
+          <p>☎️ +371 6600-NEZINU</p>
+          <p>📧 dispecers@neoficials.satiksme</p>
+          <p>📮 Pasta adrese: “Aiz 3. depo, pie pelmeņu kioska”</p>
+          <p class="disclaimer">Jebkura līdzība ar reāliem numuriem ir nejauša.</p>
+          <p class="legal">ŠIS IR MĀCĪBU / PARODIJAS LAPĀ. NE OFICIĀLS SAZIŅAS KANĀLS.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ŠĪ LAPA IR IZDOMĀTA PARODIJA / MĀCĪBU DARBS. NEIZMANTO KĀ OFICIĀLU INFORMĀCIJU PAR SABIEDRISKO TRANSPORTU.</p>
+  </footer>
+
+  <div class="modal" id="balance-modal" hidden>
+    <div class="modal-content">
+      <h2>Pievienot līdzekļus e-karte</h2>
+      <label>Suma (€)
+        <input type="number" id="balance-input" min="0" step="0.01" placeholder="10.00">
+      </label>
+      <div class="modal-actions">
+        <button class="btn ghost" id="cancel-balance">Atcelt</button>
+        <button class="btn neon" id="confirm-balance">Pievienot</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j7kE0prQG8GkP7FpC18JNpD33VdGSWmG2Jg4bCQ=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
