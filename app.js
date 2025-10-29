@@ -516,8 +516,14 @@ function initTabs() {
 function initModal() {
   const modal = document.getElementById('balance-modal');
   const input = document.getElementById('balance-input');
-  const openButtons = [document.getElementById('add-balance-header'), document.getElementById('add-balance-main')];
-  const closeButtons = [document.getElementById('cancel-balance')];
+  const openButtons = [
+    document.getElementById('add-balance-header'),
+    document.getElementById('add-balance-main')
+  ].filter(Boolean);
+  const closeButtons = [
+    document.getElementById('cancel-balance'),
+    document.getElementById('close-balance')
+  ].filter(Boolean);
   const confirmButton = document.getElementById('confirm-balance');
 
   const openModal = () => {
@@ -532,6 +538,11 @@ function initModal() {
   closeButtons.forEach(btn => btn.addEventListener('click', closeModal));
   modal.addEventListener('click', e => {
     if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !modal.hidden) {
+      closeModal();
+    }
   });
   confirmButton.addEventListener('click', () => {
     const amount = parseFloat(input.value);
