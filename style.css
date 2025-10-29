@@ -241,6 +241,11 @@ main {
   transform: scale(0.97);
 }
 
+.muted {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -259,6 +264,52 @@ main {
 .alert-widget {
   background: linear-gradient(135deg, #1f2937, #0f172a);
   color: #f3f4f6;
+}
+
+.loyalty-card {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.07));
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.loyalty-headline {
+  font-size: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.loyalty-headline strong {
+  font-size: 1.6rem;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.loyalty-desc {
+  color: var(--muted);
+  margin: 4px 0 12px;
+}
+
+.loyalty-log li {
+  background: rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  position: relative;
+  padding-right: 110px;
+}
+
+.loyalty-log li strong {
+  color: var(--accent);
+}
+
+.loyalty-log .timestamp {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(15, 23, 42, 0.6);
+  padding: 4px 8px;
+  border-radius: 999px;
 }
 
 .alert-display {
@@ -353,6 +404,26 @@ main {
 
 .plan-card.black-tier ul li::before {
   color: #facc15;
+}
+
+.discount-card {
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.discount-hint {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.discount-card .report-list li {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px dashed rgba(16, 185, 129, 0.35);
+}
+
+#discount-list li::before {
+  content: '🎟️ ';
+  font-weight: 700;
 }
 
 #active-pass-info {

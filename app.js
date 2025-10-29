@@ -7,7 +7,8 @@ const STORAGE_KEYS = {
   blackTrialActive: 'ds_black_trial',
   controllerReports: 'ds_controller_reports',
   ticketsHistory: 'ds_tickets_history',
-  alertLevel: 'ds_alert_level'
+  alertLevel: 'ds_alert_level',
+  loyaltyLog: 'ds_loyalty_log'
 };
 
 const alertLevels = ['ZAĻŠ', 'DZELTENS', 'SARKANS', 'MELNS'];
@@ -137,7 +138,8 @@ function initState() {
       createControllerReport('Stacija', 4)
     ],
     [STORAGE_KEYS.ticketsHistory]: [],
-    [STORAGE_KEYS.alertLevel]: 'ZAĻŠ'
+    [STORAGE_KEYS.alertLevel]: 'ZAĻŠ',
+    [STORAGE_KEYS.loyaltyLog]: []
   };
 
   Object.entries(defaults).forEach(([key, value]) => {
@@ -160,6 +162,7 @@ function loadState() {
   state.controllerReports = parseJSON(localStorage.getItem(STORAGE_KEYS.controllerReports)) || [];
   state.ticketsHistory = parseJSON(localStorage.getItem(STORAGE_KEYS.ticketsHistory)) || [];
   state.alertLevel = JSON.parse(localStorage.getItem(STORAGE_KEYS.alertLevel) || '"ZAĻŠ"');
+  state.loyaltyLog = parseJSON(localStorage.getItem(STORAGE_KEYS.loyaltyLog)) || [];
 }
 
 function parseJSON(str) {
@@ -222,6 +225,7 @@ function renderAll() {
   renderAlertLevel();
   renderTickets();
   renderThreatInsights();
+  renderLoyaltyStatus();
 }
 
 function renderWallet() {
@@ -296,6 +300,7 @@ function handlePlanPurchase(planId) {
   }
 
   alert('Pirkums veiksmīgs ✅');
+  addLoyalty(18, `Iegādāta programma: ${plan.name}`);
   loadState();
   renderAll();
 }
@@ -360,10 +365,27 @@ function renderLastPrize() {
 
 function renderDiscountInfo() {
   const infoBox = document.getElementById('controller-activity');
-  if (!infoBox) return;
-  const reportCount = state.controllerReports.length;
-  const level = reportCount > 8 ? 'BRĪDINI MAMMU' : reportCount > 4 ? 'augsta vigil' : reportCount > 2 ? 'vidēja' : 'zema';
-  infoBox.textContent = level;
+  if (infoBox) {
+    const reportCount = state.controllerReports.length;
+    const level = reportCount > 8 ? 'BRĪDINI MAMMU' : reportCount > 4 ? 'augsta vigil' : reportCount > 2 ? 'vidēja' : 'zema';
+    infoBox.textContent = level;
+  }
+
+  const discountList = document.getElementById('discount-list');
+  if (!discountList) return;
+
+  discountList.innerHTML = '';
+  if (!state.discounts.length) {
+    discountList.innerHTML = '<li>Nav aktīvu kuponu. Griez ratu vai ziņo dispečerim, lai sistēma tevi ievēro.</li>';
+    return;
+  }
+
+  state.discounts.forEach(discount => {
+    const li = document.createElement('li');
+    const time = discount.createdAt ? new Date(discount.createdAt).toLocaleString() : 'nezināms laiks';
+    li.innerHTML = `<strong>${discount.type}</strong><span class="muted"> — kopš ${time}</span>`;
+    discountList.appendChild(li);
+  });
 }
 
 function renderShadowStatus() {
@@ -499,6 +521,7 @@ function initModal() {
       return;
     }
     adjustBalance(amount);
+    addLoyalty(3, `Papildināta e-karte par ${amount.toFixed(2)}€`);
     closeModal();
   });
 }
@@ -634,6 +657,7 @@ function reportController(promptText) {
   localStorage.setItem(STORAGE_KEYS.controllerReports, JSON.stringify(reports.slice(-30)));
   loadState();
   renderControllerReports();
+  addLoyalty(4, `Kontrolieris pamanīts pie ${report.where}`);
   alert('Paldies par ēnu informāciju. Radarā atjaunots.');
 }
 
@@ -680,6 +704,7 @@ function initWheel() {
       localStorage.setItem(STORAGE_KEYS.lastPrize, JSON.stringify(segment.label));
       loadState();
       renderLastPrize();
+      addLoyalty(6, `Rats: ${segment.label}`);
       alert(`Rezultāts: ${segment.label}. Sistēma pierakstīja. Varbūt.`);
     }, 3200);
   });
@@ -703,6 +728,7 @@ function initTicketForm() {
     loadState();
     renderTickets();
     renderThreatInsights();
+    addLoyalty(5, `Ziņojums #${id} par ${where}`);
   });
 }
 
@@ -710,6 +736,44 @@ function initQuickStats() {
   const confiscated = document.getElementById('confiscated-count');
   const count = state.controllerReports.reduce((sum, report) => sum + Number(report.danger || 1), 0) + state.ticketsHistory.length;
   confiscated.textContent = Math.max(5, count);
+}
+
+function addLoyalty(points, description) {
+  const entry = {
+    points,
+    description,
+    time: new Date().toISOString()
+  };
+  const log = [entry, ...state.loyaltyLog].slice(0, 25);
+  localStorage.setItem(STORAGE_KEYS.loyaltyLog, JSON.stringify(log));
+  loadState();
+  renderLoyaltyStatus();
+}
+
+function renderLoyaltyStatus() {
+  const logList = document.getElementById('loyalty-log');
+  const scoreEl = document.getElementById('loyalty-score');
+  const levelEl = document.getElementById('loyalty-level');
+  if (!logList || !scoreEl || !levelEl) return;
+
+  const total = state.loyaltyLog.reduce((sum, entry) => sum + Number(entry.points || 0), 0);
+  scoreEl.textContent = total;
+
+  const level = total > 120 ? 'Legendārais ēnu patrons' : total > 60 ? 'VIP lojālists' : total > 25 ? 'Metro mafijas kandidāts' : 'Novērotājs bez biļetes';
+  levelEl.textContent = level;
+
+  logList.innerHTML = '';
+  if (!state.loyaltyLog.length) {
+    logList.innerHTML = '<li>Nav uzkrātu lojalitātes punktu. Apsver sabotāžu (joks).</li>';
+    return;
+  }
+
+  state.loyaltyLog.forEach(entry => {
+    const time = new Date(entry.time).toLocaleString();
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>+${entry.points}</strong> — ${entry.description} <span class="timestamp">${time}</span>`;
+    logList.appendChild(li);
+  });
 }
 
 window.addEventListener('DOMContentLoaded', () => {

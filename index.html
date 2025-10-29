@@ -96,6 +96,12 @@
           <div id="alert-level-display" class="alert-display">---</div>
           <button class="btn neon" id="increase-alert">Paaugstināt līmeni</button>
         </div>
+        <div class="card loyalty-card">
+          <h2>Ēnu lojalitātes padome</h2>
+          <p class="loyalty-headline"><strong id="loyalty-score">0</strong> punkti — <span id="loyalty-level">Novērotājs bez biļetes</span></p>
+          <p class="loyalty-desc">Jo vairāk tu piedalies ēnu satiksmē (pirkumi, ziņojumi, rats), jo dziļāk mafijas VIP tunelī tu nonāc.</p>
+          <ul id="loyalty-log" class="report-list loyalty-log"></ul>
+        </div>
         <div class="card black-status" id="black-trial-banner" hidden>
           <h2>🕶 Pagaidu Ēnas līmenis AKTĪVS</h2>
           <p>Uzvedies cienīgi: kontrolieri sveicina tevi pirmie, bet neaizmirsti, ka tas ir tikai pagaidu privilēģiju miglājs.</p>
@@ -157,6 +163,11 @@
           <div id="active-pass-info">
             <p>Nav aktīvas biļetes. Pievienojies ēnu kustībai!</p>
           </div>
+        </div>
+        <div class="card discount-card">
+          <h2>Aktīvie kuponi / privilēģijas</h2>
+          <p class="discount-hint">Rezultāti no Gods Wheel un slepenajiem ziņojumiem glabājas šeit. Izmanto ar stilu.</p>
+          <ul id="discount-list" class="report-list"></ul>
         </div>
         <div class="card history-card">
           <h2>Čeki / vēsture</h2>
